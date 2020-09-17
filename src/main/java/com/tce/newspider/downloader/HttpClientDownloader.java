@@ -45,16 +45,16 @@ public class HttpClientDownloader {
         this.httpClient = HttpClientBuilder.create()
                         .setDefaultRequestConfig(clientConfig)//分配默认RequestConfig实例，如果未在客户端执行上下文中显式设置，该实例将用于请求执行
                         .setConnectionManager(syncConnectionManager)//分配 HttpClientConnectionManager实例
-                        .setRetryHandler(new HttpRequestRetryHandler() {
-                            public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
-                                int retryCount = SpiderThreadLocal.get().getEngine().getRetry();
-                                boolean retry = executionCount <= retryCount;
-                                if (HttpClientDownloader.log.isDebugEnabled() && retry) {
-                                    HttpClientDownloader.log.debug("retry : " + executionCount);
-                                }
-                                return retry;
-                            }
-                        })
+//                        .setRetryHandler(new HttpRequestRetryHandler() {
+//                            public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
+//                                int retryCount = SpiderThreadLocal.get().getEngine().getRetry();
+//                                boolean retry = executionCount <= retryCount;
+//                                if (HttpClientDownloader.log.isDebugEnabled() && retry) {
+//                                    HttpClientDownloader.log.debug("retry : " + executionCount);
+//                                }
+//                                return retry;
+//                            }
+//                        })
                         .build();
     }
 
@@ -71,8 +71,8 @@ public class HttpClientDownloader {
         if (log.isDebugEnabled()) {
             log.debug("downloading..." + request.getURI());
         }
-        log.info("运行");
-        org.apache.http.HttpResponse response=null;
+        log.info("运行download");
+        HttpResponse response=null;
         request.setHeader("Accept-Encoding","identity");//不使用Gzip压缩，返回真实content-length
         try{
             response = this.httpClient.execute(request, this.cookieContext);
@@ -101,34 +101,16 @@ public class HttpClientDownloader {
 
     }
 
-
+    /**
+     * 获取响应内容
+     * @param instream
+     * @param contentLength 响应内容长度
+     * @param charset 字符编码
+     * @return
+     * @throws IOException
+     */
     public String getContent(InputStream instream, long contentLength, String charset) throws IOException{
-        //BufferedInputStream instream=new BufferedInputStream(instreamSRC);
-        try {
-            if (instream == null) {
-                return null;
-            } else {
-//                int i = (int)contentLength;
-//                if (i < 0) {
-//                    i = 4096;
-//                } 设置必须获得真实conten-type
-
-                int i = (int)contentLength;
-                Reader reader = new InputStreamReader(instream, charset);
-                CharArrayBuffer buffer = new CharArrayBuffer(i);
-                char[] tmp = new char[1024];
-
-                int l;
-                while((l = reader.read(tmp)) != -1) {
-                    buffer.append(tmp, 0, l);
-                }
-
-                String res = buffer.toString();
-                return res;
-            }
-        } finally {
-            instream.close();//instream.reset();
-        }
+        return null;
     }
 
     //private boolean isImage(String contentType){}
