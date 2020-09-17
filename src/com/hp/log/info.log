@@ -1,0 +1,22 @@
+2020-09-17 16:02:17 下午 [Thread: main][ Class:com.tce.newspider.scheduler.UniqueScheduler >> Method: com.tce.newspider.scheduler.UniqueScheduler.out(UniqueScheduler.java:32) ]
+INFO:false
+2020-09-17 16:02:17 下午 [Thread: main][ Class:com.tce.newspider.scheduler.UniqueScheduler >> Method: com.tce.newspider.scheduler.UniqueScheduler.out(UniqueScheduler.java:34) ]
+INFO:false
+2020-09-17 16:02:17 下午 [Thread: main][ Class:com.tce.newspider.scheduler.UniqueScheduler >> Method: com.tce.newspider.scheduler.UniqueScheduler.out(UniqueScheduler.java:35) ]
+INFO:true
+2020-09-17 16:04:34 下午 [Thread: main][ Class:com.tce.newspider.scheduler.UniqueScheduler >> Method: com.tce.newspider.scheduler.UniqueScheduler.out(UniqueScheduler.java:31) ]
+INFO:true
+2020-09-17 16:04:34 下午 [Thread: main][ Class:com.tce.newspider.scheduler.UniqueScheduler >> Method: com.tce.newspider.scheduler.UniqueScheduler.out(UniqueScheduler.java:34) ]
+INFO:true
+2020-09-17 17:00:55 下午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:74) ]
+INFO:运行download
+2020-09-17 17:00:55 下午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:81) ]
+INFO:org.apache.http.conn.EofSensorInputStream@1f36e637
+2020-09-17 17:00:55 下午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:83) ]
+INFO:长度：	2381
+2020-09-17 17:40:21 下午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:74) ]
+INFO:运行download
+2020-09-17 17:40:22 下午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:81) ]
+INFO:org.apache.http.conn.EofSensorInputStream@76ed1b7c
+2020-09-17 17:40:22 下午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:83) ]
+INFO:长度：	-1

@@ -3,22 +3,21 @@ package com.tce.newspider.downloader;
 
 //以上需要自己重新实现
 
-import com.sun.org.apache.bcel.internal.generic.IXOR;
-import com.tce.newspider.downloader.spider.SpiderThreadLocal;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpRequestRetryHandler;
+
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.CharArrayBuffer;
+
 import org.apache.http.util.EntityUtils;
 
 
@@ -68,11 +67,12 @@ public class HttpClientDownloader {
      * @return HttpResponse
      */
     public HttpResponse download(HttpRequestBase request, int timeout) {
+        //HttpRequestBase request=(HttpRequestBase)req;//TODO
         if (log.isDebugEnabled()) {
             log.debug("downloading..." + request.getURI());
         }
         log.info("运行download");
-        HttpResponse response=null;
+        CloseableHttpResponse response=null;
         request.setHeader("Accept-Encoding","identity");//不使用Gzip压缩，返回真实content-length
         try{
             response = this.httpClient.execute(request, this.cookieContext);
