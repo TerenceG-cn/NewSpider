@@ -2,7 +2,7 @@ package com.tce.newspider.spiderbean;
 
 
 import com.geccocrawler.gecco.spider.SpiderBeanContext;
-import com.tce.newspider.spiderbean.render.html.RenderFactory;
+import com.tce.newspider.spiderbean.render.RenderFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.reflections.Reflections;

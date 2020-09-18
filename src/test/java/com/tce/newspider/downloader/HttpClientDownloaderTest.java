@@ -1,22 +1,20 @@
 package com.tce.newspider.downloader;
 
-import com.geccocrawler.gecco.request.HttpGetRequest;
+
+import com.tce.newspider.http.HttpGetRequest;
+import com.tce.newspider.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.tools.ant.taskdefs.condition.Http;
+
 import org.junit.Test;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-
-import static org.junit.Assert.*;
 
 public class HttpClientDownloaderTest {
     @Test
     public void download() throws Exception {
         HttpGet request=new HttpGet("http://www.baidu.com");//要加"http","https":org.apache.http.client.ClientProtocolException
-
-        new HttpClientDownloader().download(request,100);
+        HttpRequest req=new HttpGetRequest("http://www.baidu.com");
+        new HttpClientDownloader().download(req,100);
     }
 
     @Test

@@ -1,15 +1,14 @@
 package com.tce.newspider.downloader;
 
 
-//以上需要自己重新实现
-
-
+import com.tce.newspider.annotation.Downloader;
+import com.tce.newspider.http.HttpRequest;
+import com.tce.newspider.http.HttpResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
 
+
+import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -23,14 +22,19 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.*;
 
-public class HttpClientDownloader {
+@Downloader(name="httpClientDownloader")
+public class HttpClientDownloader extends AbstractDownloader {
     private static Log log = LogFactory.getLog(HttpClientDownloader.class);
     private CloseableHttpClient httpClient;
-
+    private HttpClientContext cookieContext = HttpClientContext.create();//TODO cookies
 
 
     /*构造器*/
     public HttpClientDownloader() {
+        //todo cookies
+        //todo ssl证书
+        //todo 超时重试
+
 
         //设置setRedirectsEnabled false 不可重定向：普通请求正常，但是遇到重定向则停止请求
         RequestConfig clientConfig = RequestConfig.custom().setRedirectsEnabled(false).build();
@@ -44,21 +48,10 @@ public class HttpClientDownloader {
         this.httpClient = HttpClientBuilder.create()
                         .setDefaultRequestConfig(clientConfig)//分配默认RequestConfig实例，如果未在客户端执行上下文中显式设置，该实例将用于请求执行
                         .setConnectionManager(syncConnectionManager)//分配 HttpClientConnectionManager实例
-//                        .setRetryHandler(new HttpRequestRetryHandler() {
-//                            public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
-//                                int retryCount = SpiderThreadLocal.get().getEngine().getRetry();
-//                                boolean retry = executionCount <= retryCount;
-//                                if (HttpClientDownloader.log.isDebugEnabled() && retry) {
-//                                    HttpClientDownloader.log.debug("retry : " + executionCount);
-//                                }
-//                                return retry;
-//                            }
-//                        })
                         .build();
     }
 
 
-    private HttpClientContext cookieContext = HttpClientContext.create();//TODO
 
     /**
      * download 1.0
@@ -66,7 +59,7 @@ public class HttpClientDownloader {
      * @param timeout 过期时间 TODO
      * @return HttpResponse
      */
-    public HttpResponse download(HttpRequestBase request, int timeout) {
+    public org.apache.http.HttpResponse download(HttpRequestBase request, int timeout) {
         //HttpRequestBase request=(HttpRequestBase)req;//TODO
         if (log.isDebugEnabled()) {
             log.debug("downloading..." + request.getURI());
@@ -88,6 +81,14 @@ public class HttpClientDownloader {
         }
 
         return response;
+    }
+
+    @Override
+    public HttpResponse download(HttpRequest request, int timeout) throws DownloadException {
+        if (log.isDebugEnabled()) {
+            log.debug("downloading...from" + request.getUrl());
+        }
+        return null;//todo
     }
 
     public void shutdown() {
@@ -113,6 +114,6 @@ public class HttpClientDownloader {
         return null;
     }
 
-    //private boolean isImage(String contentType){}
+    //todo private boolean isImage(String contentType){}
 
 }
