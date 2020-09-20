@@ -1,6 +1,20 @@
-2020-09-18 11:06:34 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:67) ]
-INFO:运行download
-2020-09-18 11:06:35 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:74) ]
-INFO:org.apache.http.conn.EofSensorInputStream@24b1d79b
-2020-09-18 11:06:35 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:76) ]
-INFO:长度：	2381
+2020-09-20 10:32:58 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:97) ]
+INFO:0
+2020-09-20 10:35:15 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:98) ]
+INFO:0
+2020-09-20 10:35:36 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:98) ]
+INFO:[Lorg.apache.http.Header;@34c4973
+2020-09-20 10:36:24 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:98) ]
+INFO:Connection: Keep-Alive
+2020-09-20 10:37:25 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:98) ]
+INFO:Connection: Keep-Alive
+2020-09-20 10:38:13 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:98) ]
+INFO:Connection: Keep-Alive
+2020-09-20 10:44:16 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:103) ]
+INFO:false
+2020-09-20 10:46:43 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:107) ]
+INFO:0
+2020-09-20 10:51:53 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:108) ]
+INFO:1
+2020-09-20 10:52:49 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:108) ]
+INFO:1

@@ -4,6 +4,19 @@ import com.tce.newspider.downloader.AbstractDownloader;
 
 import java.util.Map;
 
+/************************************************************************************
+ 请求头Header内容
+     GET(请求的方式) /newcoder/hello.html(请求的目标资源) HTTP/1.1(请求采用的协议和版本号)
+     Accept: *|*(客户端能接收的资源类型)Accept-Language: en-us(客户端接收的语言类型)
+     Connection: Keep-Alive(维护客户端和服务端的连接关系)
+     Host: localhost:8080(连接的目标主机和端口号)
+     Referer: http://localhost/links.asp(告诉服务器我来自于哪里)
+     User-Agent: Mozilla/4.0(客户端版本号的名字)
+     Accept-Encoding: gzip, deflate(客户端能接收的压缩数据的类型)
+     If-Modified-Since: Tue, 11 Jul 2000 18:23:51 GMT(缓存时间)
+     Cookie: (客户端暂存服务端的信息)
+     Date: Tue, 11 Jul 2000 18:23:51 GMT(客户端请求服务端的时间)
+ ***********************************************************************************/
 public class AbstractHttpRequest implements HttpRequest{
 
     private String url;
