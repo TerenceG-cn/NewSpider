@@ -1,6 +1,7 @@
 package com.tce.newspider.scheduler;
 
-import org.apache.http.HttpRequest;
+
+import com.tce.newspider.http.HttpRequest;
 
 import java.util.concurrent.LinkedBlockingQueue;
 

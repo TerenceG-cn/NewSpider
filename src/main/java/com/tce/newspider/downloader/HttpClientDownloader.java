@@ -1,7 +1,6 @@
 package com.tce.newspider.downloader;
 
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.tce.newspider.annotation.Downloader;
 import com.tce.newspider.http.HttpRequest;
 import com.tce.newspider.http.HttpResponse;
@@ -9,24 +8,30 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.Args;
+import org.apache.http.util.CharArrayBuffer;
 import org.apache.http.util.EntityUtils;
 
 
 import java.io.*;
 import java.net.HttpCookie;
+import java.nio.charset.Charset;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @Downloader(name = "httpClientDownloader")
@@ -91,8 +96,15 @@ public class HttpClientDownloader extends AbstractDownloader {
         return response;
     }
 
+    /**
+     * 下载 发起请求获取响应
+     * @param request HttpRequest
+     * @param timeout  .setSocketTimeout(timeout) .setConnectTimeout(timeout)
+     * @return HttpResponse
+     * @throws DownloadException
+     */
     @Override
-    public HttpResponse download(HttpRequest request, int timeout) throws DownloadException {
+    public HttpResponse download(HttpRequest request, int timeout) throws DownloadException{
         if (log.isDebugEnabled()) {
             log.debug("downloading...from " + request.getUrl());
         }
@@ -115,28 +127,56 @@ public class HttpClientDownloader extends AbstractDownloader {
         RequestConfig.Builder rcBuilder = RequestConfig.custom()
                                         // 从链接池获取连接超时时间
                                         .setConnectionRequestTimeout(1000)
-                                        //获取数据超时
+                                        //获取数据超时 ms
                                         .setSocketTimeout(timeout)
-                                        // 请求连接超时时间
+                                        // 请求连接超时时间 ms
                                         .setConnectTimeout(timeout)
                                         //禁止重定向
                                         .setRedirectsEnabled(false);
         //todo 代理
-        HttpHost proxy = null;
-        rcBuilder.setProxy(proxy);
+        //HttpHost proxy = null;
+        //rcBuilder.setProxy(proxy);
 
-        //设置Cookies
-        try{
-            org.apache.http.HttpResponse response = this.httpClient.execute(httprequest, this.cookieContext);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        //todo 设置Cookies
 
 
         httprequest.setConfig(rcBuilder.build());
 
+        HttpResponse resp =new HttpResponse();
+        try{
+            org.apache.http.HttpResponse httpResponse = httpClient.execute(httprequest, cookieContext);
 
-        return null;//todo
+            //状态码
+            int status = httpResponse.getStatusLine().getStatusCode();
+            resp.setStatus(status);
+            log.info("返回状态："+status);
+
+            if(status==200){
+                //响应实体 字节流
+                HttpEntity responseEntity = httpResponse.getEntity();
+                ByteArrayInputStream byteContent = toByteInputStream(responseEntity.getContent());
+                resp.setByteContent(byteContent);
+                log.info("字节流："+byteContent);
+                //content-type
+                String contentType = null;
+                Header contentTypeHeader = responseEntity.getContentType();
+                if(contentTypeHeader != null) {
+                    contentType = contentTypeHeader.getValue();
+                }
+                resp.setContentType(contentType);
+                //编码
+                String charset = request.isForceUseCharset() ? request.getCharset():getCharset(request.getCharset(), contentType);
+                resp.setCharset(charset);
+                //响应内容 String
+                //String content = EntityUtils.toString(responseEntity, charset);//entity所得到的流是不可重复读取,会抛出异常Stream Closed
+                String content = getContentString(byteContent, responseEntity.getContentLength(), charset);
+                resp.setContent(content);
+                byteContent.close();
+            }
+        }catch (IOException e){
+            log.error(e);
+        }
+        return resp;
     }
 
     public void shutdown() {
@@ -152,16 +192,44 @@ public class HttpClientDownloader extends AbstractDownloader {
 
     /**
      * 获取响应内容
-     *
-     * @param instream
+     * EntityUtils.toString(responseEntity, charset) 同作用
+     * @param inStream Content 流
      * @param contentLength 响应内容长度
      * @param charset       字符编码
      * @return
      * @throws IOException
      */
-    public String getContent(InputStream instream, long contentLength, String charset) throws IOException {
+    public String getContentString(InputStream inStream, long contentLength, String charset) throws IOException {
+        if (inStream == null) {
+            return null;
+        } else {
+            try {
+                Args.check(contentLength <= 2147483647L, "HTTP entity too large to be buffered in memory");
 
-        return null;
+                int capacity = (int)contentLength;
+                if (capacity < 0) {
+                    capacity = 4096;
+                }
+                log.info("capacity"+capacity);
+
+                if (charset == null) {
+                    charset = "UTF-8";
+                }
+                Reader reader = new InputStreamReader(inStream, charset);
+                CharArrayBuffer buffer = new CharArrayBuffer(capacity);
+                char[] tmp = new char[1024];
+
+                int l;
+                while((l = reader.read(tmp)) != -1) {
+                    buffer.append(tmp, 0, l);
+                }
+                log.info(buffer.toString());
+                return buffer.toString();
+            } finally {
+                if(inStream instanceof ByteArrayInputStream)
+                    Objects.requireNonNull(inStream).reset();//ByteArrayInputStream可以调用reset实现流的复用
+            }
+        }
     }
 
     //todo private boolean isImage(String contentType){}

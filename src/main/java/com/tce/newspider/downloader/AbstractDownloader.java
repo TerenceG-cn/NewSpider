@@ -44,7 +44,7 @@ public abstract class AbstractDownloader implements Downloader {
     }
 
     /**
-     * getContent得到的inputStream转为ByteArrayInputStream，重复使用
+     * (HttpEntity )getContent得到的inputStream转为ByteArrayInputStream，重复使用
      *
      * @param in
      * @return

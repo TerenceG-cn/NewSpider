@@ -13,8 +13,12 @@ public class HttpClientDownloaderTest {
     @Test
     public void download() throws Exception {
         HttpGet request=new HttpGet("http://www.baidu.com");//要加"http","https":org.apache.http.client.ClientProtocolException
-        HttpRequest req=new HttpGetRequest("http://www.baidu.com");
-        new HttpClientDownloader().download(req,100);
+        //HttpRequest req=new HttpGetRequest("http://www.baidu.com");
+        HttpRequest req=new HttpGetRequest("https://blog.csdn.net/gengkui9897/article/details/87929235");
+        com.tce.newspider.http.HttpResponse response=new HttpClientDownloader().download(req,1000);
+        System.out.println("Content:"+response.getContent());
+        System.out.println(response.getCharset());
+        System.out.println(response.getContentType());
     }
 
     @Test

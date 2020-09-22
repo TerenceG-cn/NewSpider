@@ -1,4 +1,4 @@
-package com.tce.newspider;
+package com.tce.gecco.demo;
 
 import com.tce.newspider.downloader.HttpClientDownloader;
 import com.tce.newspider.scheduler.StartScheduler;

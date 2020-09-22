@@ -34,7 +34,7 @@ public interface HttpRequest extends Cloneable {
 
     public boolean isForceUseCharset();
 
-    public com.geccocrawler.gecco.request.HttpRequest subRequest(String url);
+    public HttpRequest subRequest(String url);
 
     public Map<String, String> getCookies();
 

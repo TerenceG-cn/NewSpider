@@ -1,6 +1,5 @@
 package com.tce.newspider.http;
 
-import com.tce.newspider.downloader.AbstractDownloader;
 
 import java.util.Map;
 
@@ -111,7 +110,7 @@ public class AbstractHttpRequest implements HttpRequest{
     }
 
     @Override
-    public com.geccocrawler.gecco.request.HttpRequest subRequest(String url) {
+    public HttpRequest subRequest(String url) {
         return null;
     }
 
