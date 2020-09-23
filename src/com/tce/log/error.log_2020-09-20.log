@@ -1,0 +1,6 @@
+2020-09-20 13:01:03 下午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:164) ]
+ERROR:java.net.SocketTimeoutException: Read timed out
+2020-09-20 13:04:48 下午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:164) ]
+ERROR:java.io.IOException: Stream closed
+2020-09-20 13:07:46 下午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:165) ]
+ERROR:java.io.IOException: Stream closed

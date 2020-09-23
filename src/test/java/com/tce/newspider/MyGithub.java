@@ -1,11 +1,13 @@
-package com.tce.gecco.demo;
+package com.tce.newspider;
 
 
-import com.geccocrawler.gecco.GeccoEngine;
-import com.geccocrawler.gecco.annotation.*;
-import com.geccocrawler.gecco.spider.HtmlBean;
+import com.tce.newspider.annotation.Html;
+import com.tce.newspider.annotation.HtmlField;
+import com.tce.newspider.annotation.RequestParameter;
+import com.tce.newspider.annotation.Text;
+import com.tce.newspider.spiderbean.HtmlBean;
 
-@Gecco(matchUrl="https://github.com/{user}/{project}", pipelines="consolePipeline")
+//@Gecco(matchUrl="https://github.com/{user}/{project}")
 public class MyGithub implements HtmlBean {
 
     private static final long serialVersionUID = -7127412585200687225L;
@@ -84,15 +86,11 @@ public class MyGithub implements HtmlBean {
     }
 
     public static void main(String[] args) {
-        GeccoEngine.create()
-                //Gecco搜索的包路径
-                .classpath("com.tce.gecco.demo")
+        SpiderEngine.create()
                 //开始抓取的页面地址
-                .start("https://github.com/xtuhcy/gecco")
+                .seed("https://github.com/xtuhcy/gecco")
                 //开启几个爬虫线程
-                .thread(1)
-                //单个爬虫每次抓取完一个请求后的间隔时间
-                .interval(2000)
+                .thread(2)
                 .start();
     }
 }

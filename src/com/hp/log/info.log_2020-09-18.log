@@ -1,6 +1,0 @@
-2020-09-18 11:06:34 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:67) ]
-INFO:运行download
-2020-09-18 11:06:35 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:74) ]
-INFO:org.apache.http.conn.EofSensorInputStream@24b1d79b
-2020-09-18 11:06:35 上午 [Thread: main][ Class:com.tce.newspider.downloader.HttpClientDownloader >> Method: com.tce.newspider.downloader.HttpClientDownloader.download(HttpClientDownloader.java:76) ]
-INFO:长度：	2381
