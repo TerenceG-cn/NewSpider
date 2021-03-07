@@ -28,7 +28,7 @@ public class HttpClientDownloaderTest {
     @Test
     public void getContent() throws Exception {
         HttpGet request=new HttpGet("http://www.baidu.com");//要加"http","https":org.apache.http.client.ClientProtocolException
-        HttpResponse response=new HttpClientDownloader().download(request,100);
+        //HttpResponse response=new HttpClientDownloader().download(request,100);
 
         //System.out.println(new HttpClientDownloader().getContent(response.getEntity().getContent(),response.getEntity().getContentLength(),
         //        "utf-8"));

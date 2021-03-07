@@ -28,7 +28,7 @@ public class UniqueScheduler implements Scheduler{
         if(pr!=null) {
             request = pr.getRequest();
             if (request != null && log.isDebugEnabled()) {
-                log.debug("OUT(" + pr.getPriorityFlag() + "):" + request.getUrl() + "(Headers:" + request.getHeaders().get("Referer") + ")");
+                log.debug("OUT(" + pr.getPriorityFlag() + "):" + request.getUrl());
             }
         }
 
@@ -40,7 +40,7 @@ public class UniqueScheduler implements Scheduler{
         long priority = System.nanoTime();
         boolean success = this.requests.add(new UniqueScheduler.PriorityHttpRequest(priority, request));
         if (success && log.isDebugEnabled()) {
-            log.debug("IN(" + priority + "):" + request.getUrl() + "(Headers:" + request.getHeaders().get("Referer") + ")");
+            log.debug("IN(" + priority + "):" + request.getUrl());
         }
 
         if (!success && log.isDebugEnabled()) {
@@ -66,7 +66,11 @@ public class UniqueScheduler implements Scheduler{
         }
     }
 
-    public static void main(String[] args){
+    public NavigableSet<PriorityHttpRequest> getRequests() {
+        return requests;
     }
 
+    public void setRequests(NavigableSet<PriorityHttpRequest> requests) {
+        this.requests = requests;
+    }
 }

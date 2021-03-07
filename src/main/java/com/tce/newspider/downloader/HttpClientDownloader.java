@@ -63,39 +63,6 @@ public class HttpClientDownloader extends AbstractDownloader {
                 .build();
     }
 
-
-    /**
-     * download 1.0
-     *
-     * @param request HttpRequestBase
-     * @param timeout 过期时间 TODO
-     * @return HttpResponse
-     */
-    public org.apache.http.HttpResponse download(HttpRequestBase request, int timeout) {
-        //HttpRequestBase request=(HttpRequestBase)req;//TODO
-        if (log.isDebugEnabled()) {
-            log.debug("downloading..." + request.getURI());
-        }
-        log.info("运行download");
-        CloseableHttpResponse response = null;
-
-        request.setHeader("Accept-Encoding", "identity");//不使用Gzip压缩，返回真实content-length
-        try {
-            response = this.httpClient.execute(request, this.cookieContext);
-            //获取响应实体
-            HttpEntity httpEntity = response.getEntity();
-            log.info(httpEntity.getContent());
-            if (httpEntity != null) {
-                log.info("长度：\t" + httpEntity.getContentLength());
-                System.out.println("内容：\t" + EntityUtils.toString(httpEntity, "UTF-8"));
-            }
-        } catch (IOException e) {
-            log.error(e.toString());
-        }
-
-        return response;
-    }
-
     /**
      * 下载 发起请求获取响应
      * @param request HttpRequest
